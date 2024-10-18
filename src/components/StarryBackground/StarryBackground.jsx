@@ -7,6 +7,15 @@ const StarryBackground = () => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
 
+    // Function to resize the canvas
+    const resizeCanvas = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+
+    // Initial resize
+    resizeCanvas();
+
     const stars = Array.from({ length: 100 }).map(() => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
@@ -29,12 +38,15 @@ const StarryBackground = () => {
       requestAnimationFrame(animate);
     };
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
+    // Start animation
     animate();
 
+    // Add event listener for window resizing
+    window.addEventListener("resize", resizeCanvas);
+
+    // Cleanup function to remove the event listener
     return () => {
+      window.removeEventListener("resize", resizeCanvas);
       cancelAnimationFrame(animate);
     };
   }, []);
@@ -47,9 +59,8 @@ const StarryBackground = () => {
         top: 0,
         left: 0,
         zIndex: -1,
-        width: "100vw", // Ensure full width
-        height: "100vh", // Ensure full height
-        overflow: "hidden", // Prevent overflow
+        width: "100vw",
+        height: "100vh",
       }}
     />
   );
