@@ -415,7 +415,7 @@ button:focus {
 }
 
 .icon-colour {
-  color: var(--purple-base) !important; /* Updated to base purple color */
+  color: var(--purple-color) !important; /* Updated to base purple color */
 }
 /* Footer */
 .footer {
